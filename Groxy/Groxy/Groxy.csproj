@@ -57,7 +57,7 @@
       <Version>12.0.1</Version>
     </PackageReference>
     <PackageReference Include="ShellShell">
-      <Version>1.0.0-CI-20190107-145031</Version>
+      <Version>1.0.0-CI-20190107-221249</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
