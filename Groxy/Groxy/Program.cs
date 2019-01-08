@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -39,6 +40,10 @@ namespace Groxy
 
             var systemProxyCmd = new ShellCommand(CommandNames.SystemProxy, GetSystemProxyCommand);
             Shell.ConfigureCommand(systemProxyCmd);
+
+            var addToPathCmd = new ShellCommand(CommandNames.AddToPath, AddToPathExecute);
+            addToPathCmd.ConfigureSwitch(SwitchesNames.AddToPath, false);
+            Shell.ConfigureCommand(addToPathCmd);
 
             try
             {
@@ -156,5 +161,37 @@ namespace Groxy
             }
         }
 
+        static void AddToPathExecute()
+        {
+            bool shouldAdd = Shell.GetSwitch(SwitchesNames.AddToPath);
+            var pathToGroxy = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            if (string.IsNullOrEmpty(pathToGroxy))
+            {
+                Console.WriteLine("Cant get path to groxy.exe");
+                return;
+            }
+            if (shouldAdd)
+            {
+                const string name = "PATH";
+                string pathvar = System.Environment.GetEnvironmentVariable(name);
+                var value = pathvar + ";" + pathToGroxy;
+                var target = EnvironmentVariableTarget.User;
+                Environment.SetEnvironmentVariable(name, value, target);
+            }
+            else
+            {
+                Process process = new Process();
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
+                    FileName = "cmd.exe",
+                    WorkingDirectory = pathToGroxy,
+                    Arguments = $"/C D:&cd {pathToGroxy}&groxy path /add",
+                    Verb = "runas"
+                };
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+        }
     }
 }

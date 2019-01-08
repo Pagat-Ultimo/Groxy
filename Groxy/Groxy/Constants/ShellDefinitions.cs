@@ -13,6 +13,7 @@ namespace Groxy.Constants
         public const string Remove = "remove";
         public const string Run = "run";
         public const string SystemProxy = "sysproxy";
+        public const string AddToPath = "path";
     }
 
     public class ParameterNames
@@ -26,5 +27,6 @@ namespace Groxy.Constants
     {
         public const string Debug = "d";
         public const string UseSysProxy = "sp";
+        public const string AddToPath = "add";
     }
 }
