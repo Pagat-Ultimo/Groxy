@@ -147,7 +147,7 @@ namespace Groxy
         private static string GetSystemProxy()
         {
             HttpWebRequest myWebRequest = (HttpWebRequest)WebRequest.Create("http://www.microsoft.com");
-
+              
             // Obtain the 'Proxy' of the  Default browser.  
             IWebProxy proxy = myWebRequest.Proxy;
             // Print the Proxy Url to the console.
