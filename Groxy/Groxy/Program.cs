@@ -113,6 +113,10 @@ namespace Groxy
                 string proxy = GetSystemProxy();
                 if(!string.IsNullOrEmpty(proxy))
                  enviromentSets += $"set HTTP_PROXY={proxy}&";
+
+                string httpsProxy = GetSystemHttpsProxy();
+                if (!string.IsNullOrEmpty(proxy))
+                    enviromentSets += $"set HTTPS_PROXY={httpsProxy}&";
             }
 
             var processInfo = new ProcessStartInfo
@@ -158,6 +162,23 @@ namespace Groxy
             else
             {
                return "";
+            }
+        }
+
+        private static string GetSystemHttpsProxy()
+        {
+            HttpWebRequest myWebRequest = (HttpWebRequest)WebRequest.Create("https://www.microsoft.com");
+
+            // Obtain the 'Proxy' of the  Default browser.  
+            IWebProxy proxy = myWebRequest.Proxy;
+            // Print the Proxy Url to the console.
+            if (proxy != null)
+            {
+                return proxy.GetProxy(myWebRequest.RequestUri).ToString();
+            }
+            else
+            {
+                return "";
             }
         }
 
