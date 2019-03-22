@@ -4,4 +4,6 @@
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E800208559FCD04F84351BB129E69413/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE800208559FCD04F84351BB129E69413/@KeyIndexDefined">True</s:Boolean>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE800208559FCD04F84351BB129E69413/RelativePriority/@EntryValue">1</s:Double>
-	<s:Boolean x:Key="/Default/UserDictionary/Words/=Groxy/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Groxy/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=sysproxy/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=usesystemproxy/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
