@@ -24,7 +24,11 @@ namespace Groxy.Models
         /// <returns></returns>
         public static ApplicationSettings LoadSettings()
         {
-            if (!File.Exists(FilePaths.GroxySettingsPath))
+            string pathToGroxy = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            if(pathToGroxy == null)
+                throw new Exception("Path to groxy not found");
+            string settingsPath = Path.Combine(pathToGroxy, FilePaths.GroxySettingsPath);
+            if (!File.Exists(settingsPath))
             {
                 var settings = new ApplicationSettings
                 {
@@ -34,7 +38,7 @@ namespace Groxy.Models
                 return settings;
             }
 
-            string json = File.ReadAllText(FilePaths.GroxySettingsPath);
+            string json = File.ReadAllText(settingsPath);
             return JsonConvert.DeserializeObject<ApplicationSettings>(json);
         }
 
@@ -46,13 +50,18 @@ namespace Groxy.Models
         {
             try
             {
+                string pathToGroxy = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                if (pathToGroxy == null)
+                    throw new Exception("config could not be loaded!");
+                string settingsPath = Path.Combine(pathToGroxy, FilePaths.GroxySettingsPath);
+                string settingsDirectory = Path.Combine(pathToGroxy, FilePaths.GroxySettingsDirectory);
                 string json = JsonConvert.SerializeObject(this);
-                if (!Directory.Exists(FilePaths.GroxySettingsDirectory))
+                if (!Directory.Exists(settingsDirectory))
                 {
-                    Directory.CreateDirectory(FilePaths.GroxySettingsDirectory);
+                    Directory.CreateDirectory(settingsDirectory);
                 }
 
-                File.WriteAllText(FilePaths.GroxySettingsPath, json);
+                File.WriteAllText(settingsPath, json);
             }
             catch (Exception)
             {
